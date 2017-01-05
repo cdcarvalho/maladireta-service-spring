@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,25 +37,14 @@ public class Usuario extends BaseEntity<Long> {
 	private String email;
 
 	@NotNull
-	@Size(min = 80, max = 80)
-	@Column(name = "password", length = 80, nullable = false)
+	@Size(min = 1, max = 8)
+	@Column(name = "password", length = 8, nullable = false)
 	private String password;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
-	private List<Pacote> pacotes;
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_permission", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "permission_id") )
 	private List<Permissao> permissoes;
 	
-	public List<Pacote> getPacotes() {
-		return pacotes;
-	}
-
-	public void setPacotes(List<Pacote> pacotes) {
-		this.pacotes = pacotes;
-	}
-
 	public List<Permissao> getPermissoes() {
 		return permissoes;
 	}
